@@ -1,19 +1,20 @@
 import pygame
 import sys
-import graficos
+import funcoes
 import time
 from pygame.locals import*
 
 pygame.init()
 tela = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Snake Beta (base fonte)")
-grafico = graficos.grafica()
+grafico = funcoes.grafica()
 
 # variaveis
 fase = 0
 opcao_menu = 0
 orientacao = 0
-
+comidinha = (200, 200)
+pontuacao = 0
 
 # ciclo do jogo
 while True:
@@ -22,7 +23,9 @@ while True:
         grafico.titulo(opcao_menu)
     elif fase == 1:
         grafico.fundo()
-        grafico.cobra(orientacao)
+        comidinha, pontuacao = grafico.cobra(orientacao, comidinha, pontuacao)
+        grafico.comida(comidinha)
+        grafico.placar(pontuacao)
         pass
     elif fase == 2:
         grafico.fundo()
@@ -71,4 +74,4 @@ while True:
     pass
 
 
-print("Funciona")
+

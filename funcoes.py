@@ -1,4 +1,5 @@
 import pygame
+import random
 from pygame.locals import*
 pygame.init()
 
@@ -10,6 +11,7 @@ cor_cobra = (0, 0, 0)
 
 # snake
 opcao = [(80, 80), (80, 100)]
+
 
 # fonte de texto
 fonte_titulo = pygame.font.SysFont("Arial", 50)
@@ -23,11 +25,12 @@ jogador = fonte_menu.render("Jogar", True, (cor_letra))
 sobre = fonte_menu.render("Sobre", True, (cor_letra))
 instrucao = fonte_texto.render("Pressione 's' para selecionar uma opção", True, (cor_letra))
 instrucao2 = fonte_texto.render("Pressione 'v' para voltar", True, (cor_letra))
-sobre1 =fonte_sobre.render("*Desenvolvedores:", True, (cor_letra))
-sobre2 =fonte_sobre.render("Nayara Cerdeira", True, (cor_letra))
-sobre3 =fonte_sobre.render("Enrique Izel", True, (cor_letra))
-sobre4 =fonte_sobre.render("*Orientador:", True, (cor_letra))
-sobre5 =fonte_sobre.render("Dr Jucimar Jr", True, (cor_letra))
+sobre1 = fonte_sobre.render("*Desenvolvedores:", True, (cor_letra))
+sobre2 = fonte_sobre.render("Nayara Cerdeira", True, (cor_letra))
+sobre3 = fonte_sobre.render("Enrique Izel", True, (cor_letra))
+sobre4 = fonte_sobre.render("*Orientador:", True, (cor_letra))
+sobre5 = fonte_sobre.render("Dr Jucimar Jr", True, (cor_letra))
+placar = fonte_sobre.render("Score: ", True, (cor_letra))
 
 class grafica(object):
     def __init__(self):
@@ -55,7 +58,7 @@ class grafica(object):
         janela.blit(sobre5, (50, 400))
         janela.blit(instrucao2, (10, 550))
 
-    def cobra(self, orientacao):
+    def cobra(self, orientacao, comidinha, pontuacao):
         for i in opcao:
             pygame.draw.rect(janela,cor_cobra, (i[0]+1, i[1]+1, 18 , 18))
             if opcao.index(i) == len(opcao)-1:
@@ -67,7 +70,17 @@ class grafica(object):
                     opcao.append((i[0], i[1]+20))
                 if orientacao == 180:
                     opcao.append((i[0] - 20, i[1]))
-                del opcao[0]
+                if i != comidinha:
+                    del opcao[0]
+                    return (comidinha, pontuacao)
+                else:
+                    pontuacao += 1
+                    return ((random.randint(0, 39)*20, random.randint(0, 29)*20), pontuacao)
                 break
 
-    def comida(self):
+    def comida(self, comidinha):
+        pygame.draw.rect(janela, cor_cursor, (comidinha[0], comidinha[1], 18, 18))
+    def placar(self, pontuacao):
+        janela.blit(placar, (10, 10))
+        pontos = fonte_texto.render(str(pontuacao), True, cor_letra)
+        janela.blit(pontos, (100, 10))
