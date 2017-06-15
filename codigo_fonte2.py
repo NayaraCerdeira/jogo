@@ -1,13 +1,13 @@
 import pygame
 import sys
-import graficos
+import funcoes
 import time
 from pygame.locals import*
 
 pygame.init()
 tela = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Snake Beta (base fonte)")
-grafico = graficos.grafica()
+grafico = funcoes.grafica()
 
 # variaveis
 fase = 0
@@ -69,6 +69,3 @@ while True:
     pygame.display.update()
     time.sleep(0.09)
     pass
-
-
-print("Funciona")
