@@ -15,6 +15,8 @@ opcao_menu = 0
 orientacao = 0
 comidinha = (200, 200)
 pontuacao = 0
+som = pygame.mixer.Sound("ben.ogg")
+som.set_volume(0.4)
 
 # ciclo do jogo
 while True:
@@ -22,12 +24,14 @@ while True:
         grafico.fundo()
         grafico.titulo(opcao_menu)
     elif fase == 1:
+        time.sleep(0.09)
         grafico.fundo()
         comidinha, pontuacao = grafico.cobra(orientacao, comidinha, pontuacao)
         grafico.comida(comidinha)
         grafico.placar(pontuacao)
         pass
     elif fase == 2:
+        som.play()
         grafico.fundo()
         grafico.sobre()
         pass
@@ -49,7 +53,7 @@ while True:
                         opcao_menu -= 1
                     else:
                         opcao_menu = 1
-                elif evento.key == pygame.K_s:
+                elif evento.key == pygame.K_RETURN:
                     if opcao_menu == 0:
                         fase = 1
                     elif opcao_menu == 1:
@@ -64,13 +68,13 @@ while True:
                 if evento.key == pygame.K_RIGHT and orientacao != 180:
                     orientacao = 0
             elif fase == 2:
-                if evento.key == pygame.K_v:
+                if evento.key == pygame.K_ESCAPE:
+                    som.stop()
                     fase = 0
         elif evento.type == KEYUP:
             pass
 
     pygame.display.update()
-    time.sleep(0.09)
     pass
 
 
