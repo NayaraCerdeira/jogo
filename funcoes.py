@@ -77,7 +77,7 @@ class grafica(object):
                     return (comidinha, pontuacao)
                 else:
                     pontuacao += 1
-		    som2.play()
+                    som2.play()
                     return ((random.randint(0, 39)*20, random.randint(0, 29)*20), pontuacao)
                 break
 
