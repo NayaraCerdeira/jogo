@@ -11,6 +11,8 @@ cor_cobra = (0, 0, 0)
 
 # snake
 opcao = [(80, 80), (80, 100)]
+som2 = pygame.mixer.Sound("pin.ogg")
+som2.set_volume(0.7)
 
 
 # fonte de texto
@@ -75,6 +77,7 @@ class grafica(object):
                     return (comidinha, pontuacao)
                 else:
                     pontuacao += 1
+		    som2.play()
                     return ((random.randint(0, 39)*20, random.randint(0, 29)*20), pontuacao)
                 break
 
