@@ -5,8 +5,10 @@ import time
 from pygame.locals import*
 
 pygame.init()
-tela = pygame.display.set_mode((800, 600))
-pygame.display.set_caption("Snake Beta (base fonte)")
+x = 800
+y = 600
+tela = pygame.display.set_mode((x, y))
+pygame.display.set_caption("Snake Beta")
 grafico = funcoes.grafica()
 
 # variaveis
@@ -15,6 +17,7 @@ opcao_menu = 0
 orientacao = 0
 comidinha = (200, 200)
 pontuacao = 0
+corpo = []
 som = pygame.mixer.Sound("ben.ogg")
 som.set_volume(0.4)
 
@@ -23,9 +26,11 @@ while True:
     if fase == 0:
         grafico.fundo()
         grafico.titulo(opcao_menu)
+
     elif fase == 1:
         time.sleep(0.09)
         grafico.fundo()
+        grafico.limite()
         comidinha, pontuacao = grafico.cobra(orientacao, comidinha, pontuacao)
         grafico.comida(comidinha)
         grafico.placar(pontuacao)
@@ -67,6 +72,11 @@ while True:
                     orientacao = 180
                 if evento.key == pygame.K_RIGHT and orientacao != 180:
                     orientacao = 0
+                if evento.key == pygame.K_q:
+                    pygame.quit()
+                    sys.exit()
+                if evento.key == pygame.K_m:
+                    fase = 0
             elif fase == 2:
                 if evento.key == pygame.K_ESCAPE:
                     som.stop()
@@ -76,6 +86,3 @@ while True:
 
     pygame.display.update()
     pass
-
-
-
